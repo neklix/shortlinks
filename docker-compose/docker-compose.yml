@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    env_file: ".env"
+    networks:
+      - internal_network
+  backend:
+    image: tfonferm/shortlinks:latest
+    env_file: ".env"
+    networks:
+      - internal_network
+    ports:
+      - "9180:8000"
+
+networks:
+  internal_network:
+    driver: bridge
